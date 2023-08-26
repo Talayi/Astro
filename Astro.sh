@@ -61,20 +61,19 @@ while true; do
     echo -e "${BLUE}|${YELLOW}17.${NC} ${GRAY}Set up wiregaurd${NC}                              ${BLUE}|${NC}"
     echo -e "${BLUE}|${YELLOW}18.${NC} ${CYAN}Set up IPsec VPN(L2TP/IKEV2)${NC}                  ${BLUE}|${NC}"
     echo -e "${BLUE}|${YELLOW}19.${NC} ${GRAY}Install Mtproto proxy${NC}                         ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}20.${NC} ${GRAY}SSH panel${NC}                         ${BLUE}|${NC}"
     echo -e "${BLUE}|                                                  |${NC}"
     echo -e "${GREEN}|    ------------  Side tools  -------------       |${NC}"
     echo -e "${BLUE}|                                                  |${NC}"
-    echo -e "${BLUE}|${YELLOW}21.${NC} ${CYAN}Google Recapcha Fix${NC}                           ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}22.${NC} ${GRAY}Cloudflare white IP scanner${NC}                   ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}23.${NC} ${CYAN}Speedtest${NC}                                     ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}24.${NC} ${GRAY}Install and config WordPress${NC}                  ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}25.${NC} ${CYAN}Reverse proxy(UNDER development)${NC}              ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}20.${NC} ${CYAN}Google Recapcha Fix${NC}                           ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}21.${NC} ${GRAY}Cloudflare white IP scanner${NC}                   ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}22.${NC} ${CYAN}Speedtest${NC}                                     ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}23.${NC} ${GRAY}Install and config WordPress${NC}                  ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}24.${NC} ${CYAN}Reverse proxy(UNDER development)${NC}              ${BLUE}|${NC}"
     echo -e "${BLUE}|                                                  |${NC}"
     echo -e "${GREEN}|    ----------------  other  --------------       |${NC}"
     echo -e "${BLUE}|                                                  |${NC}"
-    echo -e "${BLUE}|${YELLOW}26.${NC} ${GREEN}CREDITS${NC}                                       ${BLUE}|${NC}"
-    echo -e "${BLUE}|${YELLOW}0.${NC} ${RED}QUIT${NC}                                          ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}25.${NC} ${GREEN}CREDITS${NC}                                       ${BLUE}|${NC}"
+    echo -e "${BLUE}|${YELLOW}26.${NC} ${RED}QUIT${NC}                                          ${BLUE}|${NC}"
     echo -e "${GREEN}|                                                  |${NC}" 
     echo -e "${YELLOW}|                                                  |${NC}" 
     echo -e "${YELLOW}+--------------------------------------------------+${NC}"
@@ -233,23 +232,16 @@ while true; do
             ;;
         5)
             # Function to add the iptables commands to crontab
-             RED='\033[0;31m'
-            GREEN='\033[0;32m'
-            YELLOW='\033[1;33m'
-            BLUE='\033[0;34m'
-            MAGENTA='\033[0;35m'
-            CYAN='\033[0;36m'
-            GRAY='\033[0;37m'
-            NC='\033[0m' # No Color
+
             while true; do
              clear
             # show options to user
-            echo -e "${YELLOW}1.${NC} ${YELLOW}Install iptables${NC}"
-            echo -e "${YELLOW}2.${NC} ${NC}Display forwarding table${NC}"
-            echo -e "${YELLOW}3.${NC} ${GREEN}Set up a tunnel${NC}"
-            echo -e "${YELLOW}4.${NC} ${RED}Delete a tunnel${NC}"
-            echo -e "${YELLOW}5.${NC} ${NC}1.${NC}Add commands to crontab"
-            echo -e "${RED}6.${NC} ${BLUE}Back to main menu${NC}"
+            echo "${YELLOW}1.${NC} ${YELLOW}Install iptables${NC}"
+            echo "${YELLOW}1.${NC} ${NC}Display forwarding table${NC}"
+            echo "${YELLOW}1.${NC} ${GREEN}Set up a tunnel${NC}"
+            echo "${YELLOW}1.${NC} ${RED}Delete a tunnel${NC}"
+            echo "${YELLOW}1.${NC} ${NC}1.${NC}Add commands to crontab"
+            echo "${RED}1.${NC} ${BLUE}Back to main menu${NC}"
             echo " "
             echo "Please choose an option:"
             # read user input
@@ -263,8 +255,7 @@ while true; do
                         read -s -n 1
                         ;;
                 2)
-                        # Add code to display forwarding table|
-                         iptables -L -n -t nat
+                        # Add code to display forwarding table
                          ;;
                 3)
                         echo "Please enter the Iran IP for the tunnel:"
@@ -274,8 +265,8 @@ while true; do
                         echo "Please enter the SSH port (default is 22):"
                         read ssh_port
                         sudo sysctl net.ipv4.ip_forward=1
-                        sudo iptables -t nat -A PREROUTING -p tcp -d "$iran_ip" --dport $ssh_port -j DNAT --to-destination "$iran_ip"
-                        sudo iptables -t nat -A PREROUTING -j DNAT -d "$iran_ip" --to-destination "$kharej_ip"
+                        sudo iptables -t nat -A PREROUTING -p tcp --dport $ssh_port -j DNAT --to-destination "$iran_ip"
+                        sudo iptables -t nat -A PREROUTING -j DNAT --to-destination "$kharej_ip"
                         sudo iptables -t nat -A POSTROUTING -j MASQUERADE
                         echo "Do you want to add the commands to crontab for automatic execution on server reboot? (y/n)"
                         read add_to_crontab_choice
@@ -1067,24 +1058,14 @@ while true; do
 
          #Wiregaurd    
         17)
-
-             # No Color
             while true
             do
-                RED='\033[0;31m'
-                GREEN='\033[0;32m'
-                YELLOW='\033[1;33m'
-                BLUE='\033[0;34m'
-                MAGENTA='\033[0;35m'
-                CYAN='\033[0;36m'
-                GRAY='\033[0;37m'
-                NC='\033[0m'
                 clear
                 echo "==== Main Menu ===="
                 echo "${YELLOW}1.${NC} Install WireGuard"
-                echo "${YELLOW}2.${NC} Update WireGuard"
-                echo "${YELLOW}3.${NC} Backup Users"
-                echo "${YELLOW}4.${NC} Exit"
+                echo "${YELLOW}1.${NC} Update WireGuard"
+                echo "${YELLOW}1.${NC} Backup Users"
+                echo "${YELLOW}1.${NC} Exit"
                 read -p "Enter your choice [1-4]: " choice
             
                 case $choice in
@@ -1095,8 +1076,8 @@ while true; do
                             clear
                             echo "==== Install WireGuard ===="
                             echo "${YELLOW}1.${NC} Install without SSL"
-                            echo "${YELLOW}2.${NC} Install with SSL"
-                            echo "${YELLOW}3.${NC} Back to main menu"
+                            echo "${YELLOW}1.${NC} Install with SSL"
+                            echo "${YELLOW}1.${NC} Back to main menu"
                             read -p "Enter your choice [1-3]: " install_choice
             
                             case $install_choice in
@@ -1140,7 +1121,7 @@ while true; do
                                       --restart unless-stopped \
                                       weejewel/wg-easy
 
-                                    read -p "Installation complete.  you can enter the panel bu addressing ${GREEN}(http://serverip:TCPport)${NC} Press enter to continue..."
+                                    read -p "Installation complete. Press enter to continue..."
                                     ;;
                                 2)
                                     # Install WireGuard with SSL
@@ -1342,14 +1323,8 @@ while true; do
             echo -e "Press ${RED}ENTER${NC} to continue"
             read -s -n 1
             ;;
-        20)
-             echo -e "wait until the instalation finish"
-             wget https://raw.githubusercontent.com/januda-ui/DRAGON-VPS-MANAGER/main/hehe; chmod 777 hehe;./hehe
-             echo -e "you can access the menu by typing (menu) in terminal"
-              echo -e "Press ${RED}ENTER${NC} to continue"
-              read -s -n 1
-            ;;
-        21)  
+        
+        20)  
             echo -e "${GREEN}Fixing Google Recapcha...${NC}"
             echo ""
             curl -O https://raw.githubusercontent.com/jinwyp/one_click_script/master/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
@@ -1358,7 +1333,7 @@ while true; do
             read -s -n 1
             ;;
         #CFSscanner
-        22)
+        21)
              while true; do
                 clear
                  echo "---------------------"
@@ -1517,7 +1492,7 @@ while true; do
            ;;
         
         #Speedtest menu  
-        23) 
+        22) 
               while true; do
                 clear
                   echo ""
@@ -1663,7 +1638,7 @@ while true; do
             read -s -n 1
              ;;
         # Install WordPress and connect to SQL
-        24)
+        23)
             echo -e "${GREEN}Installing WordPress and connecting to SQL...${NC}"
             echo ""
             # Update package index and install required packages
@@ -1821,7 +1796,7 @@ while true; do
             read -s -n 1
             ;;
         #reverse proxy    
-        25)  
+        24)  
            apt install nginx certbot python3-certbot-nginx -y   
            read -p "Enter your site name: " site_name
            ln -s /etc/nginx/sites-available/$site_name /etc/nginx/sites-enabled/
@@ -1840,7 +1815,7 @@ while true; do
            echo -e "Press ${RED}ENTER${NC} to continue"
             read -s -n 1
             ;;
-        26)
+        25)
             clear
             echo ""
             echo -e "${BLUE}########################################${NC}"
@@ -1859,7 +1834,7 @@ while true; do
             read -s -n 1
             ;;
         # EXIT
-        0)
+        26)
             echo ""
             echo -e "${GREEN}Exiting...${NC}"
             echo "Exiting program"
